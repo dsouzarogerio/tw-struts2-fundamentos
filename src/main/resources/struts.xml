@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/struts-2.5.dtd">
+<struts>
+<!-- habilitando o modo de desenvolvimento no struts -->
+		<constant name="struts.devMode" value="true"></constant>
+<!-- Mapeamento das Actions -->
+<!-- Package: conjunto de rotas a serem interceptadas pelo struts 
+	extendidas com funcionalidades padrão -->
+<package name="tw-struts2-fundamentos" extends="struts-default, json-default"> 
+<!-- Index - mapeamento e result -->
+		<action name="index">
+				<result>/index.jsp</result>
+		</action>
+
+<!-- TesteAction - mapeamento e result -->		
+		<action name="teste" class="br.com.treinaweb.struts2.actions.TesteAction">
+				<result name="TESTE">/teste.jsp</result>
+		</action>
+<!-- Mapeamento cadastrarPessoa.jsp -->
+		<action name="cadastrarPessoa">
+				<result>/pages/pessoa/cadastrarPessoa.jsp</result>
+		</action>
+	<!-- Mapeamento da action e results do Método mostrarPessoa() do controller PessoaController e o result para a página  mostrarPessoa.jsp -->
+		<action name="mostrarPessoa" class="br.com.treinaweb.struts2.controllers.PessoaController" method="mostrar">
+				<result name="success">/pages/pessoa/mostrarPessoa.jsp</result>
+				<result name="error">/pages/pessoa/listarPessoa.jsp</result>
+		</action>
+	<!-- Mapeamento da action e results do Método listar() do controller PessoaController e o result para a página  listarPessoa.jsp -->
+		<action name="listarPessoas" class="br.com.treinaweb.struts2.controllers.PessoaController" method="listar">
+				<result name="success">/pages/pessoa/listarPessoas.jsp</result>
+				<result name="error">/pages/pessoa/listarPessoas.jsp</result>
+	</action>
+	
+	<!-- Mapeamento da action paginaCadastroPessoa -->
+	<action name="paginaCadastroPessoa">
+			<result>/pages/pessoa/cadastrarPessoa.jsp</result>
+	</action>
+	
+	<!-- Mapeamento da action inserirPessoa -->
+	<action name="inserirPessoa" class="br.com.treinaweb.struts2.controllers.PessoaController" method="inserir">
+		<result name="success" type="redirect">listarPessoas.action</result>
+		<result name="error">/pages/pessoa/cadastrarPessoa.jsp</result>
+		<result name="input">/pages/pessoa/cadastrarPessoa.jsp</result>
+	</action>
+	
+	<!-- Mapeamento da action pesquisarPessoaPorNome tendo como resultado um json-->
+	<action name="pesquisarPessoaPorNome" class="br.com.treinaweb.struts2.controllers.PessoaController" 
+		method="pesquisarPessoaPorNome">
+		<result type="json" name="success">
+			<param name="root">pessoasPorNome</param>
+		</result>
+	</action>
+</package>
+</struts>
